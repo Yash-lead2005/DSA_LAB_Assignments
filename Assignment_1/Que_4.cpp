@@ -15,7 +15,7 @@ void reverseArr(int arr[] , int &n){
     cout<<endl;
 }
 
-void multiplyMatrix(int a[][10], int b[][10], int result[][10], int r1, int c1, int r2, int c2 ){
+void multiplyMatrix(int a[][10], int b[][10], int result[][10], int r1, int c1, int c2 ){
 
     for (int i = 0; i < r1; i++) {
         for (int j = 0; j < c2; j++) {
@@ -101,7 +101,7 @@ int main(){
     int res[10][10];
 
     cout<<"Multiplication of Arrays : "<<endl;
-    multiplyMatrix(a,b,res,r1,r2,c1,c2);
+    multiplyMatrix(a,b,res,r1,c1,c2);
 
     cout << "Transpose of first matrix:"<<endl;
     transposeMatrix(a, r1, c1);
