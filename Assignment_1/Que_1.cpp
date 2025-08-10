@@ -51,7 +51,7 @@ void insertion(){
 
 
 void deletion(){
-    int pos , val;
+    int pos ;
     cout<<"Enter the position to delete  element"<<endl;
     cin>>pos;
     
