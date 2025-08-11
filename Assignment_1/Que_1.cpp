@@ -1,8 +1,8 @@
 #include<iostream>
 using namespace std;
 
-// making a global array 
-int *arr = nullptr; // dynamic array to take size as input 
+
+int *arr = nullptr; 
 int n =0;
 
 
