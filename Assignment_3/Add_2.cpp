@@ -1,101 +1,67 @@
 #include <iostream>
+#include <stack>
 using namespace std;
 
-#define MAX 100
-
 class SpecialStack {
-    long long arr[MAX];
-    int top;
-    long long minElement;
+    stack<int> s; 
+    stack<int> minStack; 
 
 public:
-    SpecialStack() {
-        top = -1;
-        minElement = -1;
+    void push(int x) {
+        s.push(x);
+
+        if (minStack.empty() || x <= minStack.top()) {
+            minStack.push(x);
+        } else {
+            
+   
+            minStack.push(minStack.top());
+        }
+    }
+
+    
+    int pop() {
+        if (s.empty()) {
+            return -1;
+        }
+  
+        int poppedElement = s.top();
+        s.pop();
+        minStack.pop();
+        return poppedElement;
+    }
+
+  
+    int peek() {
+        if (s.empty()) {
+            return -1;
+        }
+        return s.top();
     }
 
     bool isEmpty() {
-        return (top == -1);
+        return s.empty();
     }
 
-    bool isFull() {
-        return (top == MAX - 1);
-    }
 
-    void push(long long x) {
-        if (isFull()) {
-            cout << "Stack Overflow\n";
-            return;
-        }
-
-        if (isEmpty()) {
-            top++;
-            arr[top] = x;
-            minElement = x;
-        } else if (x >= minElement) {
-            top++;
-            arr[top] = x;
-        } else {
-            // store encoded value
-            long long encoded = 2*x - minElement;
-            top++;
-            arr[top] = encoded;
-            minElement = x;
-        }
-    }
-
-    void pop() {
-        if (isEmpty()) {
-            cout << "Stack Underflow\n";
-            return;
-        }
-
-        long long t = arr[top--];
-        if (t < minElement) {
-            // encoded value → restore old min
-            minElement = 2*minElement - t;
-        }
-    }
-
-    long long peek() {
-        if (isEmpty()) {
-            cout << "Stack is empty\n";
+    int getMin() {
+        if (minStack.empty()) {
             return -1;
         }
-
-        long long t = arr[top];
-        if (t >= minElement)
-            return t;
-        else
-            return minElement; // real top
-    }
-
-    long long getMin() {
-        if (isEmpty()) {
-            cout << "Stack is empty\n";
-            return -1;
-        }
-        return minElement;
+        return minStack.top();
     }
 };
 
 int main() {
-    SpecialStack st;
+    SpecialStack stack;
+    
+    stack.push(18);
+    stack.push(19);
+    stack.push(29);
+    stack.push(15);
+    stack.push(16);
 
-    st.push(3);
-    st.push(5);
-    cout << "Min: " << st.getMin() << endl; // 3
-
-    st.push(2);
-    st.push(1);
-    cout << "Min: " << st.getMin() << endl; // 1
-
-    st.pop();
-    cout << "Min: " << st.getMin() << endl; // 2
-
-    st.pop();
-    cout << "Top: " << st.peek() << endl;   // 5
-    cout << "Min: " << st.getMin() << endl; // 3
+    cout << stack.getMin() << endl;
 
     return 0;
 }
