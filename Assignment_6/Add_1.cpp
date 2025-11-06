@@ -34,6 +34,7 @@ void splitList(Node *head, Node* &head1, Node* &head2) {
     slow->next = head;
 }
 
+
 void printList(Node *head) {
     Node *curr = head;
     if (head != nullptr) {

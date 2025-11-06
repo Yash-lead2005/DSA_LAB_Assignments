@@ -30,8 +30,6 @@ Node* next = nullptr;
 Node* prev = nullptr;
 int count =0;
 
-// first checking the no of nodes in a given linked list 
-// if it is less than k then return head 
 Node* temp = head;
 int nodescount =0;
 while(temp != nullptr && nodescount <k){
@@ -41,7 +39,6 @@ while(temp != nullptr && nodescount <k){
 
 if(nodescount<k) return head;
 
-// now reversing the first k elements 
 while(current != nullptr && count < k){
     next = current->next;
     current->next = prev;
@@ -68,7 +65,7 @@ void printList(Node* head) {
 int main() {
     Node* head = nullptr;
 
-    // Create linked list: 1->2->3->4->5->6->7->8
+
     int values[] = {1, 2, 3, 4, 5, 6, 7, 8};
     for (int val : values) {
         insertAtTail(head, val);

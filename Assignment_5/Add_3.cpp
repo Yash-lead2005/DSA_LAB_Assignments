@@ -26,9 +26,7 @@ void removeLoop(Node* head) {
             break;
         }
     }
-
     if (!loopExists) return; 
-
     slow = head;
     Node* prev = nullptr; 
     while (slow != fast) {
