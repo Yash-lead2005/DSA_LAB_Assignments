@@ -1,16 +1,21 @@
-#include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
 
 void genBin(int n) {
-    
     for (int i = 1; i <= n; i++) {
-        string s;
-        
-        // Get Binary Representation of i
-        for (int x = i; x; x >>= 1)
-            s = (x & 1 ? "1" : "0") + s;
-            
-        cout << s << endl;
+        int num = i;
+        int bin[32]; 
+        int j = 0;
+
+        while (num > 0) {
+            bin[j++] = num % 2;
+            num = num / 2;
+        }
+
+        for (int k = j - 1; k >= 0; k--) {
+            cout << bin[k];
+        }
+        cout << endl;
     }
 }
 
