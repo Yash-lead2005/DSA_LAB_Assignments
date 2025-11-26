@@ -3,7 +3,47 @@ using namespace std;
 
 struct Edge {
     int u, v, w;
+    Edge *next;
 };
+
+void insertEdge(Edge* &head, int u, int v, int w) {
+    Edge *newNode = new Edge;
+    newNode->u = u;
+    newNode->v = v;
+    newNode->w = w;
+    newNode->next = NULL;
+
+    if (head == NULL) {
+        head = newNode;
+        return;
+    }
+
+    Edge *temp = head;
+    while (temp->next != NULL)
+        temp = temp->next;
+    temp->next = newNode;
+}
+
+void sortEdges(Edge* &head) {
+    if (!head) return;
+
+    for (Edge *i = head; i->next != NULL; i = i->next) {
+        for (Edge *j = head; j->next != NULL; j = j->next) {
+            if (j->w > j->next->w) {
+                // swap data only
+                int tu = j->u, tv = j->v, tw = j->w;
+
+                j->u = j->next->u;
+                j->v = j->next->v;
+                j->w = j->next->w;
+
+                j->next->u = tu;
+                j->next->v = tv;
+                j->next->w = tw;
+            }
+        }
+    }
+}
 
 int findParent(int parent[], int x) {
     while (parent[x] != x)
@@ -22,41 +62,48 @@ void unionSet(int parent[], int rank[], int a, int b) {
     }
 }
 
-void sortEdges(Edge e[], int m) {
-    for (int i = 0; i < m - 1; i++)
-        for (int j = 0; j < m - i - 1; j++)
-            if (e[j].w > e[j+1].w)
-                swap(e[j], e[j+1]);
-}
-
 int main() {
     int n, m;
     cin >> n >> m;
 
-    Edge e[1000];
-    for (int i = 0; i < m; i++)
-        cin >> e[i].u >> e[i].v >> e[i].w;
+    Edge *head = NULL;
 
-    sortEdges(e, m);
-
-    int parent[100], rank[100] = {0};
-    for (int i = 1; i <= n; i++)
-        parent[i] = i;
-
-    int totalWeight = 0;
-    cout << "MST (Kruskal):" << endl;
 
     for (int i = 0; i < m; i++) {
-        int pu = findParent(parent, e[i].u);
-        int pv = findParent(parent, e[i].v);
+        int u, v, w;
+        cin >> u >> v >> w;
+        insertEdge(head, u, v, w);
+    }
+
+
+    sortEdges(head);
+
+  
+    int parent[100], rank[100];
+    for (int i = 1; i <= n; i++) {
+        parent[i] = i;
+        rank[i] = 0;
+    }
+
+    cout << "MST (Kruskal):\n";
+
+    int totalWeight = 0;
+    Edge *temp = head;
+
+
+    while (temp != NULL) {
+        int pu = findParent(parent, temp->u);
+        int pv = findParent(parent, temp->v);
 
         if (pu != pv) {
-            cout << e[i].u << " - " << e[i].v << " = " << e[i].w << endl;
-            totalWeight += e[i].w;
+            cout << temp->u << " - " << temp->v << " = " << temp->w << "\n";
+            totalWeight += temp->w;
             unionSet(parent, rank, pu, pv);
         }
+        temp = temp->next;
     }
 
     cout << "Total Weight = " << totalWeight << endl;
+
     return 0;
 }
