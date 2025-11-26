@@ -12,7 +12,7 @@ struct Node {
     }
 };
 
-// Insert in BST (simple)
+
 Node* insertBST(Node* root, int x) {
     if (root == NULL)
         return new Node(x);
@@ -25,7 +25,7 @@ Node* insertBST(Node* root, int x) {
     return root;
 }
 
-// Convert BST to sorted DLL using inorder traversal
+
 void bstToDLL(Node* root, Node*& head, Node*& prev) {
     if (root == NULL)
         return;
@@ -33,9 +33,9 @@ void bstToDLL(Node* root, Node*& head, Node*& prev) {
     bstToDLL(root->left, head, prev);
 
     if (prev == NULL) {
-        head = root;          // first node becomes head
+        head = root;         
     } else {
-        prev->right = root;   // doubly linking
+        prev->right = root;  
         root->left = prev;
     }
     prev = root;
@@ -43,7 +43,7 @@ void bstToDLL(Node* root, Node*& head, Node*& prev) {
     bstToDLL(root->right, head, prev);
 }
 
-// Merge two sorted DLLs
+
 Node* mergeDLL(Node* h1, Node* h2) {
     if (h1 == NULL) return h2;
     if (h2 == NULL) return h1;
@@ -92,7 +92,7 @@ Node* mergeDLL(Node* h1, Node* h2) {
     return head;
 }
 
-// Print DLL
+
 void printDLL(Node* head) {
     while (head != NULL) {
         cout << head->val << " <--> ";
@@ -103,7 +103,7 @@ void printDLL(Node* head) {
 
 int main() {
 
-    // Example BST 1
+
     Node* T1 = NULL;
     T1 = insertBST(T1, 20);
     insertBST(T1, 10);
@@ -111,24 +111,23 @@ int main() {
     insertBST(T1, 25);
     insertBST(T1, 100);
 
-    // Example BST 2
+ 
     Node* T2 = NULL;
     T2 = insertBST(T2, 50);
     insertBST(T2, 5);
     insertBST(T2, 70);
 
-    // Convert T1 to DLL
     Node *head1 = NULL, *prev1 = NULL;
     bstToDLL(T1, head1, prev1);
 
-    // Convert T2 to DLL
+
     Node *head2 = NULL, *prev2 = NULL;
     bstToDLL(T2, head2, prev2);
 
-    // Merge DLLs
+
     Node* finalDLL = mergeDLL(head1, head2);
 
-    // Print final doubly linked list
+
     printDLL(finalDLL);
 
     return 0;
