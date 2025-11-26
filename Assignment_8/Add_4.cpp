@@ -27,7 +27,7 @@ int main() {
             cin >> arr[i];
         }
 
-        // Create node pointers
+
         Node** nodes = new Node*[n];
         for (int i = 0; i < n; i++) {
             if (arr[i] == -1)
@@ -36,7 +36,6 @@ int main() {
                 nodes[i] = new Node(arr[i]);
         }
 
-        // Link children using level order rules
         for (int i = 0; i < n; i++) {
             if (nodes[i] != NULL) {
                 int leftIndex = 2 * i + 1;
@@ -57,7 +56,6 @@ int main() {
             continue;
         }
 
-        // Manual queue (array-based)
         Node** q = new Node*[n];
         int front = 0, rear = 0;
 
@@ -86,7 +84,6 @@ int main() {
                 }
             }
 
-            // Print the last node of this level (right view)
             if (first == 1) {
                 cout << lastNode->val;
                 first = 0;
@@ -98,8 +95,6 @@ int main() {
         }
 
         cout << endl;
-
-        // Cleanup
         for (int i = 0; i < n; i++)
             if (nodes[i] != NULL) delete nodes[i];
 
